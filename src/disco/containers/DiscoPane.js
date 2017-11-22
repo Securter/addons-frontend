@@ -33,6 +33,7 @@ export class DiscoPaneBase extends React.Component {
     i18n: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     mozAddonManager: PropTypes.object,
+    platform: PropTypes.string.isRequired,
     results: PropTypes.arrayOf(PropTypes.object).isRequired,
     _addChangeListeners: PropTypes.func,
     _tracking: PropTypes.object,
@@ -51,7 +52,13 @@ export class DiscoPaneBase extends React.Component {
     super(props);
     this.state = { showVideo: false };
 
-    const { dispatch, errorHandler, location, results } = props;
+    const {
+      dispatch,
+      errorHandler,
+      location,
+      platform,
+      results,
+    } = props;
     // TODO: fix this; it's not the right way to detect whether a
     // dispatch is needed. This should look for an undefined value
     // instead of an empty list because an empty list could be a valid
@@ -59,6 +66,7 @@ export class DiscoPaneBase extends React.Component {
     if (!errorHandler.hasError() && !results.length) {
       dispatch(getDiscoResults({
         errorHandlerId: errorHandler.id,
+        platform,
         telemetryClientId: location.query.clientId,
       }));
     }
@@ -176,8 +184,9 @@ export function loadedAddons(state) {
   );
 }
 
-export function mapStateToProps(state) {
+export function mapStateToProps(state, ownProps) {
   return {
+    platform: ownProps.params.platform,
     results: loadedAddons(state),
   };
 }
