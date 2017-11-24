@@ -216,7 +216,7 @@ describe(__filename, () => {
       const props = helpers.mapStateToProps(
         loadDiscoResultsIntoState([]), ownProps);
 
-      render({ errorHandler, dispatch, platform: 'Darwin', ...props });
+      render({ errorHandler, dispatch, ...props });
 
       sinon.assert.calledWith(dispatch, getDiscoResults({
         errorHandlerId: errorHandler.id,

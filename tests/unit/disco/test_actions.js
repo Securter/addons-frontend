@@ -41,15 +41,17 @@ describe('disco/actions/getDiscoResults', () => {
   it('requires errorHandlerId', () => {
     const params = defaultParams();
     delete params.errorHandlerId;
-    expect(() => getDiscoResults(params))
-      .toThrow(/errorHandlerId is required/);
+    expect(() => {
+      getDiscoResults(params)
+    }).toThrow(/errorHandlerId is required/);
   });
 
   it('requires platform', () => {
     const params = defaultParams();
     delete params.platform;
-    expect(() => getDiscoResults(params))
-      .toThrow(/platform is required/);
+    expect(() => {
+      getDiscoResults(params)
+    }).toThrow(/platform is required/);
   });
 
   it('adds errorHandlerId to the payload', () => {

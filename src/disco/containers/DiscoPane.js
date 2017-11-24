@@ -33,6 +33,7 @@ export class DiscoPaneBase extends React.Component {
     i18n: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     mozAddonManager: PropTypes.object,
+    params: PropTypes.object.isRequired,
     platform: PropTypes.string.isRequired,
     results: PropTypes.arrayOf(PropTypes.object).isRequired,
     _addChangeListeners: PropTypes.func,
