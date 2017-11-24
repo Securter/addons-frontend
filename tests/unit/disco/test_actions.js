@@ -42,7 +42,7 @@ describe('disco/actions/getDiscoResults', () => {
     const params = defaultParams();
     delete params.errorHandlerId;
     expect(() => {
-      getDiscoResults(params)
+      getDiscoResults(params);
     }).toThrow(/errorHandlerId is required/);
   });
 
@@ -50,7 +50,7 @@ describe('disco/actions/getDiscoResults', () => {
     const params = defaultParams();
     delete params.platform;
     expect(() => {
-      getDiscoResults(params)
+      getDiscoResults(params);
     }).toThrow(/platform is required/);
   });
 
