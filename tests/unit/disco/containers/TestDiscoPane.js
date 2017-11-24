@@ -35,7 +35,6 @@ const { DiscoPaneBase } = helpers;
 
 
 describe(__filename, () => {
-  const ownProps = { params: { platform: 'Darwin' } };
   let fakeEvent;
   let fakeVideo;
   let fakeTracking;
@@ -58,7 +57,7 @@ describe(__filename, () => {
           ...fakeDiscoAddon,
           guid: 'foo',
         },
-      }]), ownProps);
+      }]));
       results = mappedProps.results;
     }
 
@@ -68,6 +67,7 @@ describe(__filename, () => {
       dispatch: sinon.stub(),
       i18n,
       location: { query: {} },
+      params: { platform: 'Darwin' },
       results,
       _tracking: fakeTracking,
       _video: fakeVideo,
@@ -129,13 +129,6 @@ describe(__filename, () => {
   });
 
   describe('mapStateToProps', () => {
-    it('sets platform', () => {
-      const props = helpers.mapStateToProps(
-        loadDiscoResultsIntoState([]), ownProps);
-
-      expect(props.platform).toEqual('Darwin');
-    });
-
     it('sets extension results', () => {
       const addon = { ...fakeDiscoAddon };
 
@@ -143,7 +136,7 @@ describe(__filename, () => {
         heading: 'The Add-on',
         description: 'editorial text',
         addon,
-      }]), ownProps);
+      }]));
 
       expect(props.results).toEqual([{
         ...addon,
@@ -175,7 +168,7 @@ describe(__filename, () => {
         heading: 'The Theme',
         description: 'editorial text',
         addon,
-      }]), ownProps);
+      }]));
 
       // Adjust the theme guid to match how Firefox code does it internally.
       const guid = '1234@personas.mozilla.org';
@@ -213,8 +206,7 @@ describe(__filename, () => {
     it('gets discovery results when results are empty', () => {
       const dispatch = sinon.stub();
       const errorHandler = new ErrorHandler({ id: 'some-id', dispatch });
-      const props = helpers.mapStateToProps(
-        loadDiscoResultsIntoState([]), ownProps);
+      const props = helpers.mapStateToProps(loadDiscoResultsIntoState([]));
 
       render({ errorHandler, dispatch, ...props });
 
@@ -234,8 +226,7 @@ describe(__filename, () => {
       const dispatch = sinon.stub();
       const errorHandler = new ErrorHandler({ id: 'some-id', dispatch });
       // Set up some empty results so that the component fetches new ones.
-      const props = helpers.mapStateToProps(
-        loadDiscoResultsIntoState([]), ownProps);
+      const props = helpers.mapStateToProps(loadDiscoResultsIntoState([]));
 
       render({ errorHandler, dispatch, location, ...props });
 
@@ -270,8 +261,7 @@ describe(__filename, () => {
         dispatch,
         capturedError: new Error('some API error'),
       });
-      const props = helpers.mapStateToProps(
-        loadDiscoResultsIntoState([]), ownProps);
+      const props = helpers.mapStateToProps(loadDiscoResultsIntoState([]));
 
       render({ errorHandler, dispatch, ...props });
 

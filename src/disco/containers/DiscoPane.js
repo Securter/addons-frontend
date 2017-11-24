@@ -33,8 +33,9 @@ export class DiscoPaneBase extends React.Component {
     i18n: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     mozAddonManager: PropTypes.object,
-    params: PropTypes.object.isRequired,
-    platform: PropTypes.string.isRequired,
+    params: {
+      platform: PropTypes.string.isRequired,
+    },
     results: PropTypes.arrayOf(PropTypes.object).isRequired,
     _addChangeListeners: PropTypes.func,
     _tracking: PropTypes.object,
@@ -57,7 +58,7 @@ export class DiscoPaneBase extends React.Component {
       dispatch,
       errorHandler,
       location,
-      platform,
+      params,
       results,
     } = props;
     // TODO: fix this; it's not the right way to detect whether a
@@ -67,7 +68,7 @@ export class DiscoPaneBase extends React.Component {
     if (!errorHandler.hasError() && !results.length) {
       dispatch(getDiscoResults({
         errorHandlerId: errorHandler.id,
-        platform,
+        platform: params.platform,
         telemetryClientId: location.query.clientId,
       }));
     }
@@ -185,9 +186,8 @@ export function loadedAddons(state) {
   );
 }
 
-export function mapStateToProps(state, ownProps) {
+export function mapStateToProps(state) {
   return {
-    platform: ownProps.params.platform,
     results: loadedAddons(state),
   };
 }
